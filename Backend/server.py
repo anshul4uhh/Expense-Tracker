@@ -5,7 +5,8 @@ from fastapi import FastAPI,Body
 from datetime import date
 from typing import List
 from pydantic import BaseModel
-import db_helper
+from Backend import db_helper
+
 
 class Expense(BaseModel):
     amount: float
@@ -60,3 +61,4 @@ import os
 
 if __name__ == "__main__":
     uvicorn.run("server:app", host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
+
