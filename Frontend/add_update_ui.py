@@ -2,7 +2,7 @@ import streamlit as st
 from datetime import datetime
 import requests
 
-API_URL = "http://localhost:8000"
+API_URL = "http://web-production-6a46.up.railway.app"
 
 
 def add_update_tab():

@@ -4,7 +4,7 @@ import requests
 import pandas as pd
 
 
-API_URL = "http://localhost:8000"
+API_URL = "http://web-production-6a46.up.railway.app"
 
 
 def analytics_tab():
