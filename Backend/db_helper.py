@@ -2,7 +2,7 @@ import mysql.connector
 from contextlib import contextmanager
 import os
 import logging
-from logging_setup import setup_logger
+from Backend.logging_setup import setup_logger
 
 
 logger = setup_logger('db_helper')
