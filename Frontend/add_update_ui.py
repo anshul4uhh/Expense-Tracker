@@ -42,6 +42,7 @@ def add_update_tab():
             with col2:
                 category_input = st.selectbox(label="Category", options=categories, index=categories.index(category),
                                               key=f"categories_{i}", label_visibility="collapsed")
+
             with col3:
                 notes_input = st.text_input(label="Notes", value=notes, key=f"notes{i}", label_visibility="collapsed")
 
@@ -51,7 +52,7 @@ def add_update_tab():
                 'notes': notes_input
             })
 
-        submit_button = st.form_submit_button()
+        submit_button = st.form_submit_button("Submit")
         if submit_button:
             filtered_expenses = [expense for expense in expenses if expense['amount'] > 0]
             response = requests.post(f"{API_URL}/expenses/{selected_date}", json=filtered_expenses)
