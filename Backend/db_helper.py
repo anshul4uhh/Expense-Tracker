@@ -2,6 +2,11 @@ import mysql.connector
 from contextlib import contextmanager
 import os
 import logging
+from dotenv import load_dotenv
+load_dotenv()
+
+
+
 from Backend.logging_setup import setup_logger
 
 
@@ -26,6 +31,7 @@ def get_db_cursor(commit=False):
     yield cursor
     if commit:
         connection.commit()
+        logger.info("Commited to DB")
         print("commited done")
     cursor.close()
     connection.close()
@@ -84,6 +90,7 @@ if __name__ == "__main__":
     # insert_expense("2024-07-12",500,"food","birthday cake")
     # expense = fetch_expense_by_date("2024-07-12")
     # delete_expense_by_date("2024-07-12")
-     print(fetch_expense_summary('2024-01-01' , '2024-08-01'))
+     # print(fetch_expense_summary('2024-01-01' , '2024-08-01'))
+     print(os.getenv("MYSQLDATABASE"))
     # expense = fetch_expense_by_date("2024-08-15")
     # print(expense)

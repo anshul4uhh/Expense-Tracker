@@ -1,1 +1,1 @@
-web: streamlit run Frontend/app.py --server.port=$PORT --server.address=0.0.0.0
+web: uvicorn Backend.server:app --host=0.0.0.0 --port=${PORT}
