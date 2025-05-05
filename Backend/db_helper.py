@@ -1,11 +1,10 @@
 import mysql.connector
 from contextlib import contextmanager
-import os
-import logging
 from dotenv import load_dotenv
+import os
+import ssl
+
 load_dotenv()
-
-
 
 from Backend.logging_setup import setup_logger
 
@@ -15,11 +14,11 @@ logger = setup_logger('db_helper')
 @contextmanager
 def get_db_cursor(commit=False):
     connection = mysql.connector.connect(
-        host=os.getenv("MYSQLHOST"),
-        user=os.getenv("MYSQLUSER"),
-        password=os.getenv("MYSQLPASSWORD"),
-        database=os.getenv("MYSQLDATABASE"),
-        port=int(os.getenv("MYSQLPORT", 3306))
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        database=os.getenv("DB_NAME"),
+        ssl_ca = ssl.create_default_context()
     )
 
     if connection.is_connected():
@@ -50,6 +49,8 @@ def fetch_expense_by_date(expense_date):
 
 def insert_expense(expense_date,amount,category,notes):
     logger.info(f"insert_expense_for_date called with expense_date: {expense_date}, amount:{amount}, category: {category}, notes: {notes}")
+    print(f"Inserting: {expense_date}, {amount}, {category}, {notes}")
+
     with get_db_cursor(commit=True) as cursor:
         cursor.execute("INSERT INTO expenses (expense_date,amount,category,notes) VALUES (%s, %s, %s, %s)",(expense_date,amount,category,notes))
 
@@ -91,6 +92,5 @@ if __name__ == "__main__":
     # expense = fetch_expense_by_date("2024-07-12")
     # delete_expense_by_date("2024-07-12")
      # print(fetch_expense_summary('2024-01-01' , '2024-08-01'))
-    print(os.getenv("MYSQLDATABASE"))
     # expense = fetch_expense_by_date("2024-08-15")
     # print(expense)

@@ -141,3 +141,7 @@
 2025-05-05 11:31:38,747 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
 2025-05-05 11:36:58,472 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
 2025-05-05 11:37:31,466 - db_helper - INFO - Commited to DB
+2025-05-05 22:47:50,699 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
+2025-05-05 22:48:45,290 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
+2025-05-05 22:54:42,008 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
+2025-05-05 22:54:42,146 - db_helper - INFO - Commited to DB

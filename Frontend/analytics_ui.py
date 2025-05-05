@@ -2,9 +2,14 @@ import streamlit as st
 from datetime import datetime
 import requests
 import pandas as pd
+import os
 
 
-API_URL = "http://web-production-6a46.up.railway.app"
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+
+environment = "PRODUCTION" if "railway" in os.getenv("BACKEND_URL", "") else "LOCAL"
+st.sidebar.markdown(f"**Environment:** {environment}")
+
 
 
 def analytics_tab():

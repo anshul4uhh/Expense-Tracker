@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 
-
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI,Body
 from datetime import date
 from typing import List
@@ -20,6 +20,19 @@ class DateRange(BaseModel):
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+@app.get("/debug/expenses")
+def debug_all_expenses():
+    return db_helper.fetch_all_data()
+
+
 @app.get("/expenses/{expense_date}", response_model= List[Expense])
 def get_expense(expense_date:date):
     expenses = db_helper.fetch_expense_by_date(expense_date)
@@ -27,12 +40,17 @@ def get_expense(expense_date:date):
         raise HTTPException(status_code=500,detail="failed to retrieve expense summary from database")
     return expenses
 
+
 @app.post("/expenses/{expense_date}")
-def add_or_update_expense(expense_date:date, expenses:List[Expense]= Body(...)):
+def add_or_update_expense(expense_date: date, expenses: List[Expense] = Body(...)):
+    if not expenses:
+        raise HTTPException(status_code=400, detail="No expense data provided.")
+
     db_helper.delete_expense_by_date(expense_date)
     for expense in expenses:
-        db_helper.insert_expense(expense_date,expense.amount,expense.category,expense.notes)
+        db_helper.insert_expense(expense_date, expense.amount, expense.category, expense.notes)
     return {"message": "Expense Updated Successfully"}
+
 
 @app.post("/analytics")
 def get_analysis(date_range: DateRange = Body(...)):

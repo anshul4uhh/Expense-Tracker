@@ -2,7 +2,13 @@ import streamlit as st
 from datetime import datetime
 import requests
 
-API_URL = "http://web-production-6a46.up.railway.app"
+import os
+
+
+API_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+
+environment = "PRODUCTION" if "railway" in os.getenv("BACKEND_URL", "") else "LOCAL"
+st.sidebar.markdown(f"**Environment:** {environment}")
 
 def add_update_tab():
     selected_date = st.date_input("Enter Date", datetime(2024, 8, 1), label_visibility="collapsed")
