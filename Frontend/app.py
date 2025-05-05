@@ -1,8 +1,8 @@
 import streamlit as st
 
-from Frontend.add_update_ui import add_update_tab
-from Frontend.analytics_ui import analytics_tab
-from Frontend.analytics_ui import analytics_tab_month
+from add_update_ui import add_update_tab
+from analytics_ui import analytics_tab
+from analytics_ui import analytics_tab_month
 
 st.title("Expense Management System")
 tab1,tab2,tab3 = st.tabs(["Add/Update","Analytics_By_Category","Analytics_By_Month"])
