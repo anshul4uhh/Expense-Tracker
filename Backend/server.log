@@ -138,3 +138,6 @@
 2025-05-02 21:30:35,153 - db_helper - INFO - fetch_expense_for_date called with 2024-08-01
 2025-05-02 21:30:37,229 - db_helper - INFO - fetch_expense_summary from starting month: 2024-01-01 to end date: 2024-12-31
 2025-05-02 21:31:59,511 - db_helper - INFO - fetch_expense_for_date called with 2024-08-01
+2025-05-05 11:31:38,747 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
+2025-05-05 11:36:58,472 - db_helper - INFO - insert_expense_for_date called with expense_date: 2024-07-12, amount:500, category: food, notes: birthday cake
+2025-05-05 11:37:31,466 - db_helper - INFO - Commited to DB
