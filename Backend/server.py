@@ -5,7 +5,7 @@ from fastapi import FastAPI,Body
 from datetime import date
 from typing import List
 from pydantic import BaseModel
-from Backend import db_helper
+import db_helper
 
 
 class Expense(BaseModel):
