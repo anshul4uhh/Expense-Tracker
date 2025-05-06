@@ -1,73 +1,12 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "pip install -r Backend/requirements.txt && pip install -r Frontend/requirements.txt"
-  },
-  "deploy": {
-    "startCommand": "echo 'Dummy command - real services start via Nixpacks'"
-  },
-  "services": [{
-  "$schema": "https://railway.app/railway.schema.json",
-  "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "pip install -r Backend/requirements.txt && pip install -r Frontend/requirements.txt"
+    "builder": "NIXPACKS"
   },
   "services": [
     {
-      "name": "backend",
-      "source": "Backend",
-      "startCommand": "uvicorn server:app --host 0.0.0.0 --port $PORT",
-      "env": {
-        "PORT": "8000"
-      }
-    },
-    {
-      "name": "frontend",
-      "source": "Frontend",
-      "startCommand": "streamlit run app.py --server.port $PORT",
-      "env": {
-        "PORT": "8501",
-        "BACKEND_URL": "/api"
-      }
-    },
-    {
-      "type": "mysql",
       "name": "mysql",
-      "plan": "small"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/backend/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/$1"
-    }
-  ]
-},
-    {
-      "name": "backend",
-      "source": "Backend",
-      "startCommand": "cd Backend && uvicorn server:app --host 0.0.0.0 --port $PORT",
-      "env": {
-        "PORT": "8000"
-      }
-    },
-    {
-      "name": "frontend",
-      "source": "Frontend",
-      "startCommand": "cd Frontend && streamlit run app.py --server.port $PORT",
-      "env": {
-        "PORT": "8501",
-        "BACKEND_URL": "/api"
-      }
-    },
-    {
       "type": "mysql",
-      "name": "mysql",
       "plan": "small"
     }
   ]
