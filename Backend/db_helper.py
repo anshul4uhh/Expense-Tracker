@@ -1,6 +1,7 @@
 import mysql.connector
 from contextlib import contextmanager
 from dotenv import load_dotenv
+from urllib.parse import urlparse
 import os
 import ssl
 
@@ -11,15 +12,21 @@ from logging_setup import setup_logger
 
 logger = setup_logger('db_helper')
 
+# Get from Railway's Connect tab
+DB_URL = "mysql://root:xHIIKhFjiYdcZEtbUqYAYRhfQjeHKOLw@tramway.proxy.rlwy.net:54974/railway"
+# Parse the URL
+url = urlparse(DB_URL)
+
+
 @contextmanager
 def get_db_cursor(commit=False):
     connection = mysql.connector.connect(
-        ssl_ca=ssl.create_default_context(),
-        host=os.getenv("MYSQLHOST"),
-        user=os.getenv("MYSQLUSER"),
-        password=os.getenv("MYSQLPASSWORD"),
-        database=os.getenv("MYSQLDATABASE"),
-        port=int(os.getenv("MYSQLPORT")),
+        host=url.hostname,
+        user=url.username,
+        password=url.password,
+        database=url.path[1:],  # removes the leading '/'
+        port=url.port,
+        ssl_disabled=True  # CRUCIAL FOR RAILWAY
 
     )
 
