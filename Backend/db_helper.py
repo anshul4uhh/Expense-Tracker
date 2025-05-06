@@ -15,10 +15,12 @@ logger = setup_logger('db_helper')
 def get_db_cursor(commit=False):
     connection = mysql.connector.connect(
         ssl_ca=ssl.create_default_context(),
-        host=os.getenv("DB_HOST"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        database=os.getenv("DB_NAME"),
+        host=os.getenv("MYSQLHOST"),
+        user=os.getenv("MYSQLUSER"),
+        password=os.getenv("MYSQLPASSWORD"),
+        database=os.getenv("MYSQLDATABASE"),
+        port=int(os.getenv("MYSQLPORT")),
+
     )
 
     if connection.is_connected():
