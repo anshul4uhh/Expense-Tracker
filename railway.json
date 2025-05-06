@@ -1,13 +1,19 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "buildCommand": "pip install -r Backend/requirements.txt && pip install -r Frontend/requirements.txt"
+  },
+  "deploy": {
+    "startCommand": {
+      "backend": "cd Backend && uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}",
+      "frontend": "cd Frontend && streamlit run app.py --server.port ${PORT:-8501}"
+    }
   },
   "services": [
     {
       "name": "backend",
       "source": "Backend",
-      "startCommand": "uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}",
       "env": {
         "PORT": "8000"
       }
@@ -15,7 +21,6 @@
     {
       "name": "frontend",
       "source": "Frontend",
-      "startCommand": "streamlit run app.py --server.port ${PORT:-8501}",
       "env": {
         "PORT": "8501",
         "BACKEND_URL": "/api"
@@ -30,7 +35,8 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/backend/$1"
+      "dest": "/backend/$1",
+      "methods": ["GET", "POST", "PUT", "DELETE"]
     },
     {
       "src": "/(.*)",
